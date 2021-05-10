@@ -1,77 +1,191 @@
-# C3X Dark Cloud Rising: Challenges
+# Challenge Development Process: File-Based Challenges
 
 ## Purpose
-Challenges must be organized in a standard format to automate deployment to CTFd, and to make it easier to modify challenge state over time and on game day. In this repository there are three folders corresponding to each competition scenario or "level"; they are Level1, Level2, and Level3. Under each level folder, a directory must be created for each question or "challenge" we wish to present to the players. At a minimum, you must create two files under each challenge directory:
+
+Challenges must be organized in a standard format in order to:
+- Automate deployment to CTFd
+- Facilitate the creation of a development -> testing -> production pipeline
+- Make it easier to modify challenge state over time and on game day
+
+This repository is strictly for File-Based Challenges. Hosted Challenges are maintained in a different repository.
+
+## General Organization
+
+At the root of this git repository, a directory is created for each Challenge Category. And in each challenge category folder, a directory is created for each Challenge in that category. 
+
+For example, you might create a Category folder called “01-WEB”. Inside “01-WEB”, you can have a number of challenge directories such as “0x00-SQLInjection1” and “0x01-TreeTraversal”. 
+
+Each challenge directory has two subdirectories, each of which contains a number of files. 
+- player_files (Optional): contains any files the challenge developer wishes to share with the players.
+	- Anything like a JSON dump, a binary, etc. 
+- documentation (Required): contains the challenge's documentation files including:
+	- manifest.yml (Required): contains challenge metadata including challenge name, author, category, point value, flags, dependencies, tags, etc.
+	- instructions.txt (Required): contains the challege's instructions or in other words, what students see on CTFd when they click a particular challenge.
+	- hint.txt (Optional): contains a hint that can aid the player in solving the challenge. The hint can be free or may have a cost associated with it. The cost is deducted from the team's total points. The hint_cost is not specified in hint.txt, only the hint itself. The hint_cost is specified using the "hint_cost" key in manifest.yml
+	- solution.txt (Required): contains a detailed walkthrough of the challenge solution for mentors and/or students. Should contain the flags BUT CTFd will base submissions based on what is in the “flags” keys in manifest.yml.
+
+Here is an example CTF with two categories and two challenges, one in each category:
+
+IMAGE
+
+## Deployment Order
+
+Note the number at the beginning of each category and challenge folder. This number is used to force deployment scripts (mentioned later) to deploy challenges in a specific order. This is important because CTFd requires a challenge to be present before another challenge marks it as a dependency. For example, SQLInjection2 cannot refer to SQLInjection1 as dependency until SQLInjection1 is present (i.e. deployed to) CTFd.   
+
+## Challenge Documentation
+
+### The `manifest.yml` File
+A challenge’s point value can be static or dynamic (based on the # of solves). They can have multiple flags (case-sensitive and case-insensitive). They can have associated tags that perhaps indicate the challenge’s difficulty level, a particular theme, or a useful tool that may aid in solving the challenge. Challenges can also have a cap of the number of attempts. 
+
+Here are a couple of common examples of a manifest.yml file, one for a static challenge and another for a dynamic challenge:
+
+Example Standard Challenge (Non-Dynamic)
 ```
-- manifest.yml <--- contains challenge metadata (point value, flag, etc.)
-- documentation/instructions.txt <--- contains the challenge question
+name: "0x00: CoC"                   # challenge name as it should appear to the players - required
+author: Louai Abboud                # challenge author - required
+category: Welcome to ISSessionsCTF  # challenge category as it should appear to the players - required
+value: 100                          # challenge value
+flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd)  - "IAccept"
+tags:                               # helpful tags to focus the player's attention
+  - beginner
+type: standard                      # standard or dynamic
+state: hidden                       # hidden or visible - better to keep hidden by default
+version: 1.0                        # don't change
 ```
 
-That being said, you may need to add more files depending on your requirements. A complete guide to the standard directory structure is provided below.
-
-## Example Challenge Directory Structure
+Example Dynamic Challenge
 ```
-.
-├── Level1
-│   └── ExampleChallenge
-│       ├── documentation
-│       │   ├── hint.txt
-│       │   ├── instructions.txt
-│       │   └── solution.txt
-│       ├── manifest.yml
-│       └── player_files
-│           ├── forensic-artifact-1
-│           └── log-dump.json
-├── Level2
-├── Level3
-└── prepare-for-deployment.py
+name: "0x00: Connor's Cornucopia"   # challenge name as it should appear to the players - required
+author: Louai Abboud                # challenge author - required
+category: WEB                       # challenge category as it should appear to the players - required
+type: dynamic                       # standard or dynamic
+value: 100                          # initial challenge value
+minimum: 50                         # This is the lowest that the challenge can be worth
+decay: 30                           # The amount of solves before the challenge reaches its minimum value
+hint_cost: 0                        # hint_cost if a hint is provided for the challenge - if not remove key
+flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd)  - KylesKonundrum
+  - MinhsMuscles
+  - JohnsJukebox
+tags:                               # helpful tags to focus the player's attention
+  - difficult
+state: hidden                       # hidden or visible - better to keep hidden by default
+version: 1.0                        # don't change
+requirements:                       # dependencies on other challenges - dependencies must be deployed before current challenge.
+  - '0x00: CoC'
+attempts: 0
 ```
 
-### `Level1, Level2, Level3` Directories:
-- required 
-- challenge category name on CTFd.
-- correspond to scenario levels (but do not necessarily need to).
 
-### `ExampleChallenge` Directory:
-- required 
-- challenge directory, child of a category directory (Ex: "Level1")
-- Best named after the challenge. For example, if the challenge is named "Ben's Bistro", the directory name could be "BensBistro".
-- Do not use spaces or weird special characters in the directory's name: dashes and underscores only.
-- Must be unique across the category.
+### The `instructions.txt` File
+Use the following guidelines when creating the instructions.txt file. Make sure to include the following items.
+- How does the player connect to the challenge (url, ip, port, etc.)? Or do they download a zip file?
+- What do you want the player to do?
+- Are there any steps to convert the challenge solution to a standardized flag format?
 
-### `manifest.yml` file:
-- required
-- contains challenge metadata including challenge name, author, category, point value, flags, dependencies, tags, etc.
-- more detailed instructions inside.
+### The `hint.txt` File
+Provide a helpful hint here. Hints can be free or paid. If paid, the hint is deducted from the team’s score. The hint_cost key in manifest.yml specifies the cost of the hint.
 
-### `documentation` directory:
-- required
-- contains the challenge's documentation files including instructions.txt, hint.txt, and solution.txt. 
+### The `solution.txt` File
+Provide an in-depth explanation of the challenge! Mentors will refer to this solution when helping students during the CTF.
 
-### `instructions.txt` file:
-- required 
-- contains the challege's instructions or in other words, what students see on CTFd when they click a particular challenge.
-- later added to a CTFd deployment file programmatically via prepare-for-deployment.py
+A in-depth explanation should include:
+- Recommended tools and resources.
+- Setup steps that the players need to go through.
+- A detailed step by step solution including rationale, explanations, and specific commands.
+- All possible challenge flags.
+- Steps to convert the challenge solution to a standard flag format.
 
-### `hint.txt` file:
-- optional
-- contains a hint that can aid the player in solving the challenge. 
-- later added to a CTFd deployment file programmatically via prepare-for-deployment.py
-- The hint can be free or may have a cost associated with it. The cost is deducted from the team's total points.
-- The hint_cost is not specified in hint.txt, only the hint itself. The hint_cost is specified using the "hint_cost" key in manifest.yml.  
+Remember; ISSessionsCTF is an ultra-beginner CTF. Getting this file right is the difference between a good and a bad CTF.
 
-### `solution.txt` file:
-- optional
-- contains a detailed walkthrough of the challenge solution for mentors and/or students.
-- DOES NOT contain the solution students must submit on CTFd. The "flag" submitted on CTFd is specified using the "flags" key in manifest.yml.
+## Development Process
 
-### `player_files` directory:
-- optional
-- contains any files the challenge developer wishes to share with the players. These could be additional instructions, forensics artificats, etc.
-- later zipped into a single archive via prepare-for-deployment.py
+### Setup
+1. Create a dedicated challenge development VM. You will have to install some tools and it’s better not to install them on your personal machine. A Ubuntu Linux VM is strongly recommended.
+2. Clone `https://github.com/csivitu/ctfcli/`, change directories into the repository’s root, and run the setup.py script to install `ctfcli`. ctfcli allows for the automated deployment of CTF challenges to CTFd from the commandline and is key to automated deployment.
 
-### `prepare-for-deployment.py` script:
-- This script converts previous inputs into CTFd standard format (which is difficult and cumbersome to generate by hand)
-- It zips the player_files directory into a single zip file, adds necessary html tags to the instructions and hints, and generates CTFd's challenge.yml file. 
+Command:
+```
+git clone https://github.com/csivitu/ctfcli/ && cd ctfcli && sudo python3 setup.py install --record files.txt```
+```
+
+3. Add an SSH key to your github account. Here’s a guide: https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account 
+4. Get a CTFd access token.
+	a. Create an admin account on CTFd.
+	b. Click Settings
+	c. Click Access Tokens
+	d. Click Generate and note down the resulting access token. 
+5. On your VM, run the following command. You will get two prompts, one for CTFd’s URL and another for your personal admin access token to CTFd.
+
+```
+ctf init
+```
+
+IMAGE
+
+This will create a .ctf/config file in the repository.
+
+Important Note: We are using a fork of the original ctfd/ctfcli because the original does not yet support dynamic challenges. In the future, this may:
+1. Become unnecessary as the original CTFd ctfcli (https://github.com/CTFd/ctfcli ) implements support for dynamic challenges. This would be great!
+2. The fork may break because CTFd has implemented a change at odds with the forked implementation. In this case, you may have to modify ctfcli yourself to support dynamic challenges. (Don’t worry it’s not that complicated of a tool).
+
+### Development
+
+1. Build the file-based challenge’s logic. There are plenty of examples online for inspiration including here:
+	a. https://github.com/ctfs (Awesome Resource! Mega Writeup Repo)
+	b. https://github.com/infosec-ucalgary/magpieCTF-2021
+	c. https://github.com/PlatyPew/picoctf-2018-writeup 
+	d. https://github.com/csivitu/ctf-challenges 
+2. Make sure you’ve read ALL ABOVE SECTIONS BEFORE PROCEEDING!
+3. Clone this repository.
+```
+git clone <repo url>
+```
+4. Create a new challenge directory under the relevant category folder (if the category does not yet exist, create it!). 
+5. In this challenge directory, create two folders: documentation and player_files.
+6. Place the files you wish to give to the players in the player_files directory. 
+7. Document the challenge by creating `manifest.yml`, `instructions.txt`, `hint.txt`, and `solution.txt` and placing them in a documentation directory.
+8. Go back to the root of the challenges repository and run the build.py script.
+```
+./build.py
+```
+9. Check if build.py produced any errors. The output should look like this:
+
+IMAGE
+
+10. If there are no errors, you are ready to deploy the challenge to CTFd. Note this does not mean the challenge’s logic is sound, only that it builds correctly. Challenge logic will be verified in the testing phase. 
+
+You will notice that two files have been created in each challenge directory:
+1. challenge.yml: this is CTFd standard deployment file. We do not create directly but generate it programmatically because it requires us to write instructions and hints in HTML inside a YAML file which is very cumbersome and unrealistic for challenges with a long set of instructions.
+2. <ChallengeName>.zip: this is a zipped up version of the contents of the player_files directory as well as instructions.txt. This prevents the user from having to click on each challenge file individually to download it. It also includes the instructions.txt file for those obsessed with the command line and do not wish to keep revisiting CTFd.
+
+### Deployment
+
+To deploy the challenge to CTFd, run the following commands in sequence:
+```
+ctf challenge add <CHALLENGE_DIRECTORY_FROM_REPO_ROOT>
+ctf challenge install <CHALLENGE_DIRECTORY_FROM_REPO_ROOT>
+```
+If the challenge has already been deployed and you want to update, use:
+```
+ctf challenge sync <CHALLENGE_DIRECTORY_FROM_REPO_ROOT>
+```
+
+
+### Saving Your Work: Pushing Changes to Github
+
+1. Add your challenge into source control.
+```
+git add .
+```
+2. Commit your changes locally.
+```
+git commit -m “Added the coolest challenge yet.”
+```
+3. Push your changes to Github
+```
+git push -u origin main 
+```
+
+And you’re all done!! On to the next challenge!
 
 
