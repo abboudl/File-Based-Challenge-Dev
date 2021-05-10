@@ -1,0 +1,6 @@
+Challenge instructions go here!
+
+Make sure to include:
+- How does the player connect to the challenge (url, ip, port, etc.)? Or do they download a zip file?
+- What do you want the player to do? 
+- Are there any steps to convert the challenge solution to a standardized flag format?

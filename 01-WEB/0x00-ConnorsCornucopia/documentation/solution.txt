@@ -1,0 +1,12 @@
+Provide an in-depth explanation of the challenge! Mentors will refer to this solution when helping students during the CTF.
+
+A in-depth explanation should include:
+- Recommended tools and resources.
+- Setup steps that the players needs to go through.
+- A detailed step by step solution including rationale, explanations, and specific commands.
+- All possible challenge flags.
+- Steps to convert the challenge solution to a standard flag format.
+
+Remember; ISSessionsCTF is an ultra-beginner CTF.
+
+Getting this file right is the difference between a good and a bad CTF.

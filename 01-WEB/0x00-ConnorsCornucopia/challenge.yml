@@ -1,0 +1,27 @@
+attempts: 0
+author: Louai Abboud
+category: WEB
+decay: 30
+description: Challenge instructions go here!<br><br>Make sure to include:<br>- How
+  does the player connect to the challenge (url, ip, port, etc.)? Or do they download
+  a zip file?<br>- What do you want the player to do? <br>- Are there any steps to
+  convert the challenge solution to a standardized flag format?<br>
+files:
+- ./01-WEB/0x00-ConnorsCornucopia/0x00-ConnorsCornucopia.zip
+flags:
+- KylesKonundrum
+- MinhsMuscles
+- JohnsJukebox
+hints:
+- content: Provide a helpful hint here. Hints can be free or paid.<br>
+  cost: 0
+minimum: 50
+name: '0x00: Connor''s Cornucopia'
+requirements:
+- '0x00: CoC'
+state: hidden
+tags:
+- difficult
+type: dynamic
+value: 100
+version: 1.0
