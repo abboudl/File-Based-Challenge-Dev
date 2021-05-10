@@ -150,7 +150,7 @@ git clone <repo url>
 ```
 9. Check if build.py produced any errors. The output should look like this:
 
-![ctf init](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/build-py-output.png)
+![build-py-output.png](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/build-py-output.png)
 
 10. If there are no errors, you are ready to deploy the challenge to CTFd. Note this does not mean the challenge’s logic is sound, only that it builds correctly. Challenge logic will be verified in the testing phase. 
 
