@@ -65,7 +65,8 @@ value: 100                          # initial challenge value
 minimum: 50                         # This is the lowest that the challenge can be worth
 decay: 30                           # The amount of solves before the challenge reaches its minimum value
 hint_cost: 0                        # hint_cost if a hint is provided for the challenge - if not remove key
-flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd)  - KylesKonundrum
+flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd)
+  - KylesKonundrum
   - MinhsMuscles
   - JohnsJukebox
 tags:                               # helpful tags to focus the player's attention
