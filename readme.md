@@ -113,10 +113,10 @@ git clone https://github.com/csivitu/ctfcli/ && cd ctfcli && sudo python3 setup.
 
 3. Add an SSH key to your github account. Here’s a guide: https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account 
 4. Get a CTFd access token.
-	a. Create an admin account on CTFd.
-	b. Click **Settings**
-	c. Click **Access Tokens**
-	d. Click **Generate** and note down the resulting access token. 
+	1. Create an admin account on CTFd.
+	2. Click **Settings**
+	3. Click **Access Tokens**
+	4. Click **Generate** and note down the resulting access token. 
 5. On your VM, run the following command. You will get two prompts, one for **CTFd’s URL** and another for your **personal admin access token to CTFd**.
 
 ```
@@ -134,10 +134,10 @@ This will create a .ctf/config file in the repository.
 ### Development
 
 1. Build the file-based challenge’s logic. There are plenty of examples online for inspiration including here:
-	a. https://github.com/ctfs (Awesome Resource! Mega Writeup Repo)
-	b. https://github.com/infosec-ucalgary/magpieCTF-2021
-	c. https://github.com/PlatyPew/picoctf-2018-writeup 
-	d. https://github.com/csivitu/ctf-challenges 
+	1. https://github.com/ctfs (Awesome Resource! Mega Writeup Repo)
+	2. https://github.com/infosec-ucalgary/magpieCTF-2021
+	3. https://github.com/PlatyPew/picoctf-2018-writeup 
+	4. https://github.com/csivitu/ctf-challenges 
 2. Make sure you’ve read ALL ABOVE SECTIONS BEFORE PROCEEDING!
 3. Clone this repository.
 ```
