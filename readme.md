@@ -1,8 +1,8 @@
 # Challenge Development Process: File-Based Challenges
 
-## Purpose
-
 ![Repository Structure](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/connor.png)
+
+## Purpose
 
 Challenges must be organized in a standard format in order to:
 - Automate deployment to CTFd
