@@ -108,7 +108,7 @@ Remember, ISSessionsCTF is an ultra-beginner CTF. Getting this file right is the
 
 Command:
 ```
-git clone https://github.com/csivitu/ctfcli/ && cd ctfcli && sudo python3 setup.py install --record files.txt```
+git clone https://github.com/csivitu/ctfcli/ && cd ctfcli && sudo python3 setup.py install --record files.txt
 ```
 
 3. Add an SSH key to your github account. Here’s a guide: https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account 
@@ -117,17 +117,27 @@ git clone https://github.com/csivitu/ctfcli/ && cd ctfcli && sudo python3 setup.
 	2. Click **Settings**
 	3. Click **Access Tokens**
 	4. Click **Generate** and note down the resulting access token. 
-5. On your VM, run the following command. You will get two prompts, one for **CTFd’s URL** and another for your **personal admin access token to CTFd**.
-
+5. On your VM, run the following command. You will get two prompts, one for **CTFd’s URL** and another for your **personal admin access token to CTFd**. Enter these and press Enter. This will create a **.ctf/config** file in the repository.
 ```
 ctf init
 ```
 
 ![ctf init](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/ctf-init.png)
 
-This will create a .ctf/config file in the repository.
+6. Next, clone this repository.
+```
+git clone <repo url>
+```
+7. Create your own branch. You can name it after yourself for example.
+```
+git branch louai
+git checkout louai
+```
 
-**Important Note:** We are using **a fork of the original ctfd/ctfcli** because the original does not yet support dynamic challenges. In the future, this may:
+From now on, use this branch for all challenge development activities. It will be merged into main at a later date.
+
+**Important Note:** 
+We are using **a fork of the original ctfd/ctfcli** because the original does not yet support dynamic challenges. In the future, this may:
 1. Become unnecessary as the original CTFd ctfcli (https://github.com/CTFd/ctfcli ) implements support for dynamic challenges. This would be great!
 2. The fork may break because CTFd has implemented a change at odds with the forked implementation. In this case, you may have to modify ctfcli yourself to support dynamic challenges. (Don’t worry it’s not that complicated of a tool).
 
@@ -139,40 +149,38 @@ This will create a .ctf/config file in the repository.
 	3. https://github.com/PlatyPew/picoctf-2018-writeup 
 	4. https://github.com/csivitu/ctf-challenges 
 2. Make sure you’ve read ALL ABOVE SECTIONS BEFORE PROCEEDING!
-3. Clone this repository.
-```
-git clone <repo url>
-```
-4. Create a new challenge directory under the relevant category folder (if the category does not yet exist, create it!). 
-5. In this challenge directory, create two folders: **documentation** and **player_files**.
-6. Place the files you wish to give to the players in the **player_files** directory. 
-7. Document the challenge by creating `manifest.yml`, `instructions.txt`, `hint.txt`, and `solution.txt` and placing them in a **documentation** directory.
-8. Go back to the root of the challenges repository and run the **build.py** script.
+3. Create a new challenge directory under the relevant category folder (if the category does not yet exist, create it!). 
+4. In this challenge directory, create two folders: **documentation** and **player_files**.
+5. Place the files you wish to give to the players in the **player_files** directory. 
+6. Document the challenge by creating `manifest.yml`, `instructions.txt`, `hint.txt`, and `solution.txt` and placing them in a **documentation** directory.
+7. Go back to the root of the challenges repository and run the **build.py** script.
 ```
 ./build.py
 ```
-9. Check if build.py produced any errors. The output should look like this:
+8. Check if build.py produced any errors. The output should look like this:
 
 ![build-py-output.png](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/build-py-output.png)
 
-10. If there are no errors, you are ready to deploy the challenge to CTFd. Note this does not mean the challenge’s logic is sound, only that it builds correctly. Challenge logic will be verified in the testing phase. 
+9. If there are no errors, you are ready to deploy the challenge to CTFd. Note this does not mean the challenge’s logic is sound, only that it builds correctly. Challenge logic will be verified in the testing phase. 
+
+**What did build.py do?***
 
 You will notice that two files have been created in each challenge directory:
 1. **challenge.yml**: this is CTFd standard deployment file. We do not create directly but generate it programmatically because it requires us to write instructions and hints in HTML inside a YAML file which is very cumbersome and unrealistic for challenges with a long set of instructions.
 2. **(ChallengeName).zip**: this is a zipped up version of the contents of the player_files directory as well as instructions.txt. This prevents the user from having to click on each challenge file individually to download it. It also includes the instructions.txt file for those obsessed with the command line and do not wish to keep revisiting CTFd.
 
+
 ### Deployment
 
-To deploy the challenge to CTFd, run the following commands in sequence:
+To deploy the challenge to CTFd for the first time, run the following commands in sequence:
 ```
 ctf challenge add <CHALLENGE_DIRECTORY_FROM_REPO_ROOT>
 ctf challenge install <CHALLENGE_DIRECTORY_FROM_REPO_ROOT>
 ```
-If the challenge has already been deployed and you want to update, use:
+If the challenge has already been deployed and you want to update it, use:
 ```
 ctf challenge sync <CHALLENGE_DIRECTORY_FROM_REPO_ROOT>
 ```
-
 
 ### Saving Your Work: Pushing Changes to Github
 
@@ -186,7 +194,7 @@ git commit -m “Added the coolest challenge yet.”
 ```
 3. Push your changes to Github
 ```
-git push -u origin main 
+git push -u origin <YOUR_BRANCH> 
 ```
 
 And you’re all done!! On to the next challenge!
