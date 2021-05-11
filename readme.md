@@ -1,6 +1,6 @@
 # Challenge Development Process: File-Based Challenges
 
-![Repository Structure](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/connor.png)
+![ConnorFace](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/connor.png)
 
 ## Purpose
 
