@@ -163,7 +163,7 @@ We are using **a fork of the original ctfd/ctfcli** because the original does no
 
 9. If there are no errors, you are ready to deploy the challenge to CTFd. Note this does not mean the challenge’s logic is sound, only that it builds correctly. Challenge logic will be verified in the testing phase. 
 
-**What did build.py do?***
+**What did build.py do?**
 
 You will notice that two files have been created in each challenge directory:
 1. **challenge.yml**: this is CTFd standard deployment file. We do not create directly but generate it programmatically because it requires us to write instructions and hints in HTML inside a YAML file which is very cumbersome and unrealistic for challenges with a long set of instructions.
