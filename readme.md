@@ -9,7 +9,7 @@ Challenges must be organized in a standard format in order to:
 - Facilitate the creation of a development -> testing -> production pipeline
 - Make it easier to modify challenge state over time and on game day
 
-This repository is strictly for File-Based Challenges. Hosted Challenges are maintained in a different repository.
+This repository is strictly for **File-Based Challenges**. Hosted Challenges are maintained in a different repository.
 
 ## General Organization
 
