@@ -32,7 +32,9 @@ Here is an example CTF with two categories and two challenges, one in each categ
 
 ## Deployment Order
 
-Note the number at the beginning of each category and challenge folder. This number is used to force deployment scripts (mentioned later) to deploy challenges in a specific order. This is important because CTFd requires a challenge to be present before another challenge marks it as a dependency. For example, SQLInjection2 cannot refer to SQLInjection1 as dependency until SQLInjection1 is present (i.e. deployed to) CTFd.   
+Note the number at the beginning of each category and challenge folder. This number is used to force deployment scripts to deploy challenges in a specific order. 
+
+This is important because CTFd requires a challenge to be present before another challenge marks it as a dependency. For example, SQLInjection2 cannot refer to SQLInjection1 as dependency until SQLInjection1 is has been deployed to CTFd.   
 
 ## Challenge Documentation
 
