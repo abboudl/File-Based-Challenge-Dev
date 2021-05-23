@@ -13,7 +13,7 @@ This repository is strictly for **File-Based Challenges**. Hosted Challenges are
 
 ## General Organization
 
-At the root of this git repository, a directory is created for each **Challenge Category**. And in each challenge category folder, a directory is created for each **Challenge** in that category. 
+At the root of this git repository, a directory is created for each **Challenge Category**. Each category folder contains a set of challenge folders representing individual challenges. 
 
 For example, you might create a **Category folder** called “01-WEB”. Inside “01-WEB”, you can have a number of **challenge directories** such as “0x00-SQLInjection1” and “0x01-TreeTraversal”. 
 
