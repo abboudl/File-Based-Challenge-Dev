@@ -1,12 +1,37 @@
+#######################################
+# CTFd Parameters
+#######################################
 
-name: "0x00: CoC"                   # challenge name as it should appear to the players - required
-author: Louai Abboud                # challenge author - required
-category: Welcome to ISSessionsCTF  # challenge category as it should appear to the players - required
-value: 100                          # challenge value
-flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd) - in depth explanations of the solution should be placed in documentation/solution.txt. Flags are case-sensitive but can be made case-insensitive through the CTFd GUI.
-  - "IAccept"
-tags:                               # helpful tags to focus the player's attention
-  - beginner
-type: standard                      # standard or dynamic
-state: hidden                       # hidden or visible - better to keep hidden by default
-version: 1.0                        # don't change
+challenge:
+  # challenge name as it should appear to the players - required
+  name: "0x00: CoC"
+
+  # challenge author - required
+  author: Louai Abboud
+
+  # challenge category as it should appear to the players - required
+  category: Welcome to ISSessionsCTF
+
+  # challenge value
+  value: 100
+
+  # all viable solutions to a challenge (i.e. what the student 
+  # enters in CTFd) - in depth explanations of the solution 
+  # should be placed in documentation/solution.txt. Flags are 
+  # case-sensitive but can be made case-insensitive through 
+  # the CTFd GUI.
+  flags:                             
+    - "IAccept"
+
+  # helpful tags to focus the player's attention
+  tags:                               
+    - beginner
+
+  # standard or dynamic
+  type: standard
+
+  # hidden or visible - better to keep hidden by default
+  state: hidden
+
+  # challenge version
+  version: 1.0            

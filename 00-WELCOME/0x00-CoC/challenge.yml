@@ -5,7 +5,7 @@ description: Challenge instructions go here!<br><br>Make sure to include:<br>- H
   a zip file?<br>- What do you want the player to do? <br>- Are there any steps to
   convert the challenge solution to a standardized flag format?<br>
 files:
-- ./00-WELCOME/0x00-CoC/0x00-CoC.zip
+- 00-WELCOME/0x00-CoC/0x00-CoC.zip
 flags:
 - IAccept
 name: '0x00: CoC'
