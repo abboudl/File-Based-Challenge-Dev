@@ -1,6 +1,6 @@
 # Challenge Development Process: File-Based Challenges
 
-![ConnorFace](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/connor.png)
+![ConnorFace](readme-images/connor.png)
 
 ## Purpose
 
@@ -45,41 +45,101 @@ Here are a couple of common examples of a manifest.yml file, one for a static ch
 
 **Example Standard Challenge (Non-Dynamic)**
 ```
-name: "0x00: CoC"                   # challenge name as it should appear to the players - required
-author: Louai Abboud                # challenge author - required
-category: Welcome to ISSessionsCTF  # challenge category as it should appear to the players - required
-value: 100                          # challenge value
-flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd)  - "IAccept"
-tags:                               # helpful tags to focus the player's attention
-  - beginner
-type: standard                      # standard or dynamic
-state: hidden                       # hidden or visible - better to keep hidden by default
-version: 1.0                        # don't change
+#######################################
+# CTFd Parameters
+#######################################
+
+challenge:
+  # challenge name as it should appear to the players - required
+  name: "0x00: CoC"
+
+  # challenge author - required
+  author: Louai Abboud
+
+  # challenge category as it should appear to the players - required
+  category: Welcome to ISSessionsCTF
+
+  # challenge value
+  value: 100
+
+  # all viable solutions to a challenge (i.e. what the student 
+  # enters in CTFd) - in depth explanations of the solution 
+  # should be placed in documentation/solution.txt. Flags are 
+  # case-sensitive but can be made case-insensitive through 
+  # the CTFd GUI.
+  flags:                             
+    - "IAccept"
+
+  # helpful tags to focus the player's attention
+  tags:                               
+    - beginner
+
+  # standard or dynamic
+  type: standard
+
+  # hidden or visible - better to keep hidden by default
+  state: hidden
+
+  # challenge version
+  version: 1.0  
 ```
 
 **Example Dynamic Challenge**
 ```
-name: "0x00: Connor's Cornucopia"   # challenge name as it should appear to the players - required
-author: Louai Abboud                # challenge author - required
-category: WEB                       # challenge category as it should appear to the players - required
-type: dynamic                       # standard or dynamic
-value: 100                          # initial challenge value
-minimum: 50                         # This is the lowest that the challenge can be worth
-decay: 30                           # The amount of solves before the challenge reaches its minimum value
-hint_cost: 0                        # hint_cost if a hint is provided for the challenge - if not remove key
-flags:                              # all viable solutions to a challenge (i.e. what the student enters in CTFd)
-  - KylesKonundrum
-  - MinhsMuscles
-  - JohnsJukebox
-tags:                               # helpful tags to focus the player's attention
-  - difficult
-state: hidden                       # hidden or visible - better to keep hidden by default
-version: 1.0                        # don't change
-requirements:                       # dependencies on other challenges - dependencies must be deployed before current challenge.
-  - '0x00: CoC'
-attempts: 0
-```
+#####################################
+# CTFd PARAMETERS
+#####################################
+challenge:
+  # challenge name as it should appear to the players - required - 20 characters max
+  name: "0x00: Connor's Cornucopia"
 
+  # challenge author - required
+  author: Louai Abboud
+
+  # challenge category as it should appear to the players - required - 20 characters max
+  category: WEB
+
+  # standard or dynamic
+  type: dynamic
+
+  # initial challenge value
+  value: 100
+
+  # This is the lowest that the challenge can be worth
+  minimum: 50
+
+  # The amount of solves before the challenge reaches its minimum value
+  decay: 30
+
+  # hint_cost if a hint is provided for the challenge - if not remove key
+  hint_cost: 0
+
+  # All viable solutions to a challenge (i.e. what the student enters in 
+  # CTFd) - in depth explanations of the solution should be placed in 
+  # documentation/solution.txt. Flags are case-sensitive but can be 
+  # made case-insensitive through the CTFd GUI.
+  flags:                              
+    - KylesKonundrum
+    - MinhsMuscles
+    - JacksJukebox
+
+  # helpful tags to focus the player's attention
+  tags:               
+    - difficult
+
+  # hidden or visible - better to keep hidden by default
+  state: hidden
+
+  # challenge version
+  version: 1.0
+
+  # dependencies on other challenges - dependencies must be deployed before current challenge.
+  # requirements:                       
+  #  - '0x00: CoC'
+
+  # Number of attempts - 0 attempts = infinite attempts
+  attempts: 0
+```
 
 ### The `instructions.txt` File
 Use the following guidelines when creating the instructions.txt file. Make sure to include the following items.
@@ -99,8 +159,6 @@ A in-depth explanation should include:
 - A detailed step by step solution including rationale, explanations, and specific commands.
 - All possible challenge flags.
 - Steps to convert the challenge solution to a standard flag format.
-
-Remember, ISSessionsCTF is an ultra-beginner CTF. Getting this file right is the difference between a good and a bad CTF.
 
 ## Development Process
 
@@ -124,7 +182,7 @@ git clone https://github.com/csivitu/ctfcli/ && cd ctfcli && sudo python3 setup.
 ctf init
 ```
 
-![ctf init](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/ctf-init.png)
+![ctf init](readme-images/ctf-init.png)
 
 6. Next, clone this repository.
 ```
@@ -145,23 +203,19 @@ We are using **a fork of the original ctfd/ctfcli** because the original does no
 
 ### Development
 
-1. Build the file-based challenge’s logic. There are plenty of examples online for inspiration including here:
+1. Build the file-based challenge. There are plenty of examples online for inspiration:
 	1. https://github.com/ctfs (Awesome Resource! Mega Writeup Repo)
 	2. https://github.com/infosec-ucalgary/magpieCTF-2021
 	3. https://github.com/PlatyPew/picoctf-2018-writeup 
 	4. https://github.com/csivitu/ctf-challenges 
-2. Make sure you’ve read ALL ABOVE SECTIONS BEFORE PROCEEDING!
-3. Create a new challenge directory under the relevant category folder (if the category does not yet exist, create it!). 
-4. In this challenge directory, create two folders: **documentation** and **player_files**.
-5. Place the files you wish to give to the players in the **player_files** directory. 
-6. Document the challenge by creating `manifest.yml`, `instructions.txt`, `hint.txt`, and `solution.txt` and placing them in a **documentation** directory.
-7. Go back to the root of the challenges repository and run the **build.py** script.
+2. Organize your challenge in accordance with the directory structure described in the **General Organization** section.
+3. Go back to the root of the file-based challenges repository and run the **build.py** script.
 ```
 ./build.py
 ```
 8. Check if build.py produced any errors. The output should look like this:
 
-![build-py-output.png](https://github.com/abboudl/ISSessionsCTF2022-File-Based-Challenges/blob/main/readme-images/build-py-output.png)
+![build-py-output.png](readme-images/build-py-output.png)
 
 9. If there are no errors, you are ready to deploy the challenge to CTFd. Note this does not mean the challenge’s logic is sound, only that it builds correctly. Challenge logic will be verified in the testing phase. 
 
