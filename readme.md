@@ -209,9 +209,9 @@ We are using **a fork of the original ctfd/ctfcli** because the original does no
 	3. https://github.com/PlatyPew/picoctf-2018-writeup 
 	4. https://github.com/csivitu/ctf-challenges 
 2. Organize your challenge in accordance with the directory structure described in the **General Organization** section.
-3. Go back to the root of the file-based challenges repository and run the **build.py** script.
+3. Go back to the root of the file-based challenges repository and run the **build.py** script against your challenge directory with the `make` flag. For example:
 ```
-./build.py
+./build.py make 01-WEB/0x00-ConnorsCornucopia/
 ```
 8. Check if build.py produced any errors. The output should look like this:
 
